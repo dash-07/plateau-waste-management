@@ -44,6 +44,10 @@ const createListItem = (content) => {
       (location) => location.street === content
     )[0];
     map.setView([coords.lat, coords.lng], 17);
+    L.popup()
+      .setLatLng([coords.lat, coords.lng]) // Set the popup position
+      .setContent(`<b>${coords.street}</b>${coords.desc}`) // Set the popup content
+      .openOn(map);
     dropdownList.classList.remove("show");
   });
   return li;
@@ -60,19 +64,19 @@ locations.forEach((location) => {
   dropdownList.appendChild(li);
   if (location.marker === "waste-bin")
     L.marker([location.lat, location.lng], { icon: binIcon })
-      .bindPopup(location.street)
+      .bindPopup(`<b>${location.street}</b>${location.desc}`)
       .addTo(map);
   else if (location.marker === "recycle")
     L.marker([location.lat, location.lng], { icon: recycleIcon })
-      .bindPopup(location.street)
+      .bindPopup(`<b>${location.street}</b>${location.desc}`)
       .addTo(map);
   else if (location.marker === "incinerator")
     L.marker([location.lat, location.lng], { icon: incinerateIcon })
-      .bindPopup(location.street)
+      .bindPopup(`<b>${location.street}</b>${location.desc}`)
       .addTo(map);
   else
     L.marker([location.lat, location.lng])
-      .bindPopup(location.street)
+      .bindPopup(`<b>${location.street}</b>${location.desc}`)
       .addTo(map);
 });
 
